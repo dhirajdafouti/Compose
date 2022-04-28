@@ -1,14 +1,12 @@
 package com.project.myapplication
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
@@ -84,7 +82,8 @@ fun Greeting(name: String) {
 }
 
 @ExperimentalAnimationApi
-@Preview(showBackground = true)
+@Preview(name="Light Mode",showBackground = true)
+@Preview(name="Dark Mode",uiMode = Configuration.UI_MODE_NIGHT_YES,showBackground = true)
 @Composable
 fun DefaultPreview() {
     MyApplicationTheme {
@@ -109,14 +108,18 @@ fun MessageCard(message: Message) {
                         .border(1.dp, MaterialTheme.colors.secondary, CircleShape),
                     fontFamily = FontFamily.Default)
                 Spacer(modifier = Modifier.size(2.dp))
-                Text(text = message.author,
-                    style = MaterialTheme.typography.subtitle2,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .border(1.dp, MaterialTheme.colors.secondary, CircleShape).width(80.dp),
-                    color = MaterialTheme.colors.primaryVariant,
-                    fontFamily = FontFamily.Default,
-                    fontSize = TextUnit.Unspecified)
+                Surface(shape = MaterialTheme.shapes.medium,elevation = 2.dp,color = MaterialTheme.colors.primary,border = BorderStroke(1.dp,
+                    Color.Blue)) {
+                    Text(text = message.author,
+                        style = MaterialTheme.typography.subtitle2,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                            .border(1.dp, MaterialTheme.colors.secondary, CircleShape)
+                            .width(80.dp),
+                        color = MaterialTheme.colors.primaryVariant,
+                        fontFamily = FontFamily.Default,
+                        fontSize = TextUnit.Unspecified)
+                }
             }
         }
         Image(painterResource(R.drawable.ic_pic),
