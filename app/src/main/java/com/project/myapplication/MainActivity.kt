@@ -17,9 +17,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -79,6 +77,7 @@ fun Greeting(name: String) {
         }
     }
 
+
 }
 
 @ExperimentalAnimationApi
@@ -97,7 +96,6 @@ fun DefaultPreview() {
 fun MessageCard(message: Message) {
     Row(modifier = Modifier
         .background(Color.Transparent)) {
-
         Row {
             Column {
                 Text(text = message.message,
