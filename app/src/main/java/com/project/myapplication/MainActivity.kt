@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -114,6 +115,10 @@ fun MessageCard(message: Message) {
             var isExpanded by remember {
                 mutableStateOf(true)
             }
+            // surfaceColor will be updated gradually from one color to the other
+            val surfaceColor by animateColorAsState(
+                if (isExpanded) MaterialTheme.colors.primary else MaterialTheme.colors.surface,
+            )
             Column(modifier = Modifier.clickable { isExpanded = !isExpanded }) {
                 Text(text = message.message,
                     color = MaterialTheme.colors.primaryVariant,
