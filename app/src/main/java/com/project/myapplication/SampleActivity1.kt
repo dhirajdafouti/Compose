@@ -3,19 +3,20 @@ package com.project.myapplication
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Checkbox
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.*
 import androidx.compose.material.TabRowDefaults.Divider
-import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.project.myapplication.ui.theme.MyApplicationTheme
@@ -52,7 +53,7 @@ fun NamePicker(
 
         LazyColumn {
             items(names) { name ->
-                NamePickerItem(name.message+name.author, onNameClicked)
+                NamePickerItem(name.message + name.author, onNameClicked)
             }
         }
     }
@@ -79,15 +80,46 @@ fun Greeting2(message: List<Message>) {
     }
 }
 
+
+@Composable
+fun CartItem() {
+    val quantity = remember {
+        mutableStateOf(1)
+    }
+    Row {
+        Image(painterResource(R.drawable.ic_pic),
+            contentDescription = null,
+            modifier = Modifier
+                .size(40.dp)
+                .border(1.5.dp, Color.Blue, CircleShape)
+                .clip(CircleShape))
+        Row {
+            Button(onClick = { quantity.value++ } ) {
+                Text(text = "+",modifier = Modifier.width(5.dp).height(5.dp),Color.Black)
+            }
+            Text(quantity.value.toString())
+            Button(onClick = { quantity.value-- }) {
+                Text(text = "-",modifier = Modifier.width(5.dp).height(5.dp),Color.Black)
+            }
+        }
+
+    }
+
+}
+
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview2() {
     MyApplicationTheme {
+        CartItem()
         // DynamicText(SampleData2.noConversation)
         // MessageList(SampleData2.conversationSample)
-      //NamePicker(header = "Items", names = SampleData2.conversationSample)
+        // NamePicker(header = "Items", names = SampleData2.conversationSample,onNameClicked = {
+
+        //    })
     }
 }
+
 @Composable
 fun MessageList(conversationSample: List<Message>) {
     Row {
@@ -114,6 +146,7 @@ fun MessageList(conversationSample: List<Message>) {
         }
     }
 }
+
 
 object SampleData2 {
     // Sample conversation data

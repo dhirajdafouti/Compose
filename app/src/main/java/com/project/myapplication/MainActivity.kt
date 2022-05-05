@@ -146,11 +146,11 @@ fun MessageCard(message: Message) {
             }
         }
         Image(painterResource(R.drawable.ic_pic),
-            contentDescription = null,
-            modifier = Modifier
-                .size(40.dp)
-                .border(1.5.dp, Color.Blue, CircleShape)
-                .clip(CircleShape))
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(40.dp)
+                        .border(1.5.dp, Color.Blue, CircleShape)
+                        .clip(CircleShape))
 
     }
 }
