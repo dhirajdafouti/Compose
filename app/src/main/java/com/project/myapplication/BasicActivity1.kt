@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -27,19 +28,21 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.project.myapplication.ui.theme.MyApplicationTheme
 
-class SampleActivity1 : ComponentActivity() {
+class BasicActivity1 : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MyApplicationTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
+                Surface(color = MaterialTheme.colors.onError,
+                    modifier = Modifier.padding(vertical = 5.dp, horizontal = 8.dp)) {
                     //Greeting2(SampleData2.noConversation)
                     //  MessageList(SampleData2.conversationSample)
                     var name by rememberSaveable {
                         mutableStateOf("")
                     }
-                    HelloContent(name,onNameClicked = {name=it
+                    HelloContent(name, onNameClicked = {
+                        name = it
                     })
 
                 }
@@ -48,6 +51,43 @@ class SampleActivity1 : ComponentActivity() {
     }
 }
 
+
+@Composable
+fun HelloWorld(names: List<String>) {
+
+    Column(modifier = Modifier
+        .padding(vertical = 4.dp, horizontal = 4.dp)
+        .background(Color.Green)) {
+        for (name in names) {
+            ComposeValues(name)
+        }
+
+    }
+}
+
+@Composable
+fun ComposeValues(name: String) {
+    Surface(color = MaterialTheme.colors.primary,
+        modifier = Modifier.padding(vertical = 2.dp, horizontal = 2.dp)) {
+        val expanded = remember {
+            mutableStateOf(false)
+        }
+        val extraPadding =if(expanded.value) 49.dp else 0.dp
+        Row(modifier = Modifier
+            .fillMaxWidth()
+            .padding(20.dp, 20.dp)) {
+            Column(modifier = Modifier.weight(1f).padding(bottom = extraPadding)) {
+                Text(text = "Hello")
+                Text(text =  ",$name")
+            }
+            OutlinedButton(onClick = {expanded.value=!expanded.value }) {
+                Text( if(expanded.value) "Show More" else "Show Less" ,textAlign = TextAlign.Center)
+                
+            }
+        }
+
+    }
+}
 
 @Composable
 fun NamePicker(
@@ -126,44 +166,50 @@ fun CartItem() {
 }
 
 @Composable
-fun HelloContent(name :String,onNameClicked: (String) -> Unit) {
+fun HelloContent(name: String, onNameClicked: (String) -> Unit) {
     Column(
         modifier = Modifier.padding(10.dp),
         verticalArrangement = Arrangement.Center,
     ) {
-
         if (name.isEmpty()) {
-            Text(text = "Hello World $name ",
+            Text(
+                text = "Hello World $name ",
                 style = MaterialTheme.typography.h5,
-                modifier = Modifier.padding(bottom = 8.dp),
+                modifier = Modifier.padding(bottom = 10.dp),
                 fontStyle = FontStyle.Normal,
                 textAlign = TextAlign.Center,
-                color = Color.Blue)
+            )
         }
-        OutlinedTextField(value = name, onValueChange = onNameClicked, label = { Text(text = "Name ") })
-
+        OutlinedTextField(value = name,
+            onValueChange = onNameClicked,
+            label = { Text(text = "Name ") })
 
     }
 
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//fun DefaultPreview2() {
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview2() {
+
+    //   CartItem()
+    var name by rememberSaveable {
+        mutableStateOf("")
+    }
+//    Surface(color = MaterialTheme.colors.error) {
 //
-//    //   CartItem()
-//    var name by rememberSaveable {
-//        mutableStateOf("")
+//        HelloContent(name, onNameClicked = {
+//            name = it
+//        })
 //    }
-//    HelloContent(name,onNameClicked = {name=it
-//    })
-//    // DynamicText(SampleData2.noConversation)
-//    // MessageList(SampleData2.conversationSample)
-//    // NamePicker(header = "Items", names = SampleData2.conversationSample,onNameClicked = {
-//
-//    //    })
-//
-//}
+    // DynamicText(SampleData2.noConversation)
+    // MessageList(SampleData2.conversationSample)
+    // NamePicker(header = "Items", names = SampleData2.conversationSample,onNameClicked = {
+    var values = listOf<String>("World", "Compose")
+    HelloWorld(values)
+    //    })
+
+}
 
 @Composable
 fun MessageList(conversationSample: List<Message>) {
