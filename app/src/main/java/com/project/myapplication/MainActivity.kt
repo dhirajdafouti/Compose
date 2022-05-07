@@ -18,10 +18,8 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
@@ -30,7 +28,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.project.myapplication.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -44,11 +41,11 @@ class MainActivity : ComponentActivity() {
                     // Greeting("Android")
                     //CardGreeting()
                     //    MessageCard(Message("Android", "Jet Pack Compose"))
-                    val viewModel = viewModel<MainViewModel>()
-                    val time = viewModel.countDownFlow.collectAsState(initial = 10)
+                //    val viewModel = viewModel<MainViewModel>()
+                  //  val time = viewModel.countDownFlow.collectAsState(initial = 10)
                     Row(modifier = Modifier.fillMaxSize()) {
                         Text(
-                            text = time.value.toString(),
+                            text = "",
                             style = MaterialTheme.typography.h2,
                            fontSize=30.sp,
                             modifier = Modifier.align(Alignment.CenterVertically)

@@ -13,6 +13,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.TabRowDefaults.Divider
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -35,7 +36,11 @@ class SampleActivity1 : ComponentActivity() {
                 Surface(color = MaterialTheme.colors.background) {
                     //Greeting2(SampleData2.noConversation)
                     //  MessageList(SampleData2.conversationSample)
-                 HelloContent()
+                    var name by rememberSaveable {
+                        mutableStateOf("")
+                    }
+                    HelloContent(name,onNameClicked = {name=it
+                    })
 
                 }
             }
@@ -88,7 +93,7 @@ fun Greeting2(message: List<Message>) {
 
 @Composable
 fun CartItem() {
-    val quantity = remember {
+    var quantity = remember {
         mutableStateOf(1)
     }
     Row {
@@ -121,32 +126,44 @@ fun CartItem() {
 }
 
 @Composable
-fun HelloContent() {
-    Column(modifier = Modifier.padding(10.dp),
-        verticalArrangement = Arrangement.Center,) {
-        Text(text = "Hello World",
-            style = MaterialTheme.typography.h5,
-            modifier = Modifier.padding(bottom = 8.dp),fontStyle = FontStyle.Normal,textAlign = TextAlign.Center,color = Color.Blue)
-        OutlinedTextField(value = "", onValueChange = {}, label = { Text(text = "Name") })
+fun HelloContent(name :String,onNameClicked: (String) -> Unit) {
+    Column(
+        modifier = Modifier.padding(10.dp),
+        verticalArrangement = Arrangement.Center,
+    ) {
+
+        if (name.isEmpty()) {
+            Text(text = "Hello World $name ",
+                style = MaterialTheme.typography.h5,
+                modifier = Modifier.padding(bottom = 8.dp),
+                fontStyle = FontStyle.Normal,
+                textAlign = TextAlign.Center,
+                color = Color.Blue)
+        }
+        OutlinedTextField(value = name, onValueChange = onNameClicked, label = { Text(text = "Name ") })
 
 
     }
 
 }
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview2() {
-
-    //   CartItem()
-    HelloContent()
-    // DynamicText(SampleData2.noConversation)
-    // MessageList(SampleData2.conversationSample)
-    // NamePicker(header = "Items", names = SampleData2.conversationSample,onNameClicked = {
-
-    //    })
-
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun DefaultPreview2() {
+//
+//    //   CartItem()
+//    var name by rememberSaveable {
+//        mutableStateOf("")
+//    }
+//    HelloContent(name,onNameClicked = {name=it
+//    })
+//    // DynamicText(SampleData2.noConversation)
+//    // MessageList(SampleData2.conversationSample)
+//    // NamePicker(header = "Items", names = SampleData2.conversationSample,onNameClicked = {
+//
+//    //    })
+//
+//}
 
 @Composable
 fun MessageList(conversationSample: List<Message>) {
