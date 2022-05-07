@@ -17,7 +17,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.project.myapplication.ui.theme.MyApplicationTheme
 
@@ -30,7 +35,7 @@ class SampleActivity1 : ComponentActivity() {
                 Surface(color = MaterialTheme.colors.background) {
                     //Greeting2(SampleData2.noConversation)
                     //  MessageList(SampleData2.conversationSample)
-
+                 HelloContent()
 
                 }
             }
@@ -94,14 +99,36 @@ fun CartItem() {
                 .border(1.5.dp, Color.Blue, CircleShape)
                 .clip(CircleShape))
         Row {
-            Button(onClick = { quantity.value++ } ) {
-                Text(text = "+",modifier = Modifier.width(5.dp).height(5.dp),Color.Black)
+            Button(onClick = { quantity.value++ }) {
+                Text(text = "+", modifier = Modifier
+                    .width(5.dp)
+                    .height(5.dp), Color.Black)
             }
             Text(quantity.value.toString())
             Button(onClick = { quantity.value-- }) {
-                Text(text = "-",modifier = Modifier.width(5.dp).height(5.dp),Color.Black)
+                Text(text = "-",
+                    modifier = Modifier
+                        .width(5.dp)
+                        .height(5.dp),
+                    Color.Black,
+                    fontFamily = FontFamily.Cursive,
+                    fontSize = TextUnit.Unspecified)
             }
         }
+
+    }
+
+}
+
+@Composable
+fun HelloContent() {
+    Column(modifier = Modifier.padding(10.dp),
+        verticalArrangement = Arrangement.Center,) {
+        Text(text = "Hello World",
+            style = MaterialTheme.typography.h5,
+            modifier = Modifier.padding(bottom = 8.dp),fontStyle = FontStyle.Normal,textAlign = TextAlign.Center,color = Color.Blue)
+        OutlinedTextField(value = "", onValueChange = {}, label = { Text(text = "Name") })
+
 
     }
 
@@ -110,14 +137,15 @@ fun CartItem() {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview2() {
-    MyApplicationTheme {
-        CartItem()
-        // DynamicText(SampleData2.noConversation)
-        // MessageList(SampleData2.conversationSample)
-        // NamePicker(header = "Items", names = SampleData2.conversationSample,onNameClicked = {
 
-        //    })
-    }
+    //   CartItem()
+    HelloContent()
+    // DynamicText(SampleData2.noConversation)
+    // MessageList(SampleData2.conversationSample)
+    // NamePicker(header = "Items", names = SampleData2.conversationSample,onNameClicked = {
+
+    //    })
+
 }
 
 @Composable

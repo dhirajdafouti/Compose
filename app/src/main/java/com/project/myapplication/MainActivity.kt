@@ -17,8 +17,11 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
@@ -26,6 +29,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.project.myapplication.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -38,7 +43,17 @@ class MainActivity : ComponentActivity() {
                 Surface(color = MaterialTheme.colors.background) {
                     // Greeting("Android")
                     //CardGreeting()
-                    MessageCard(Message("Android", "Jet Pack Compose"))
+                    //    MessageCard(Message("Android", "Jet Pack Compose"))
+                    val viewModel = viewModel<MainViewModel>()
+                    val time = viewModel.countDownFlow.collectAsState(initial = 10)
+                    Row(modifier = Modifier.fillMaxSize()) {
+                        Text(
+                            text = time.value.toString(),
+                            style = MaterialTheme.typography.h2,
+                           fontSize=30.sp,
+                            modifier = Modifier.align(Alignment.CenterVertically)
+                        )
+                    }
                 }
             }
 
@@ -146,11 +161,11 @@ fun MessageCard(message: Message) {
             }
         }
         Image(painterResource(R.drawable.ic_pic),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(40.dp)
-                        .border(1.5.dp, Color.Blue, CircleShape)
-                        .clip(CircleShape))
+            contentDescription = null,
+            modifier = Modifier
+                .size(40.dp)
+                .border(1.5.dp, Color.Blue, CircleShape)
+                .clip(CircleShape))
 
     }
 }
