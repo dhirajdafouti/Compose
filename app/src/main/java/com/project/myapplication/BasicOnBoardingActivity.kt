@@ -15,11 +15,11 @@ import androidx.compose.material.*
 import androidx.compose.material.TabRowDefaults.Divider
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.project.myapplication.ui.theme.MyApplicationTheme
 
-class BasicActivity1 : ComponentActivity() {
+class BasicOnBoardingActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -38,12 +38,13 @@ class BasicActivity1 : ComponentActivity() {
                     modifier = Modifier.padding(vertical = 5.dp, horizontal = 8.dp)) {
                     //Greeting2(SampleData2.noConversation)
                     //  MessageList(SampleData2.conversationSample)
-                    var name by rememberSaveable {
-                        mutableStateOf("")
-                    }
-                    HelloContent(name, onNameClicked = {
-                        name = it
-                    })
+//                    var name by rememberSaveable {
+//                        mutableStateOf("")
+//                    }
+//                    HelloContent(name, onNameClicked = {
+//                        name = it
+//                    })
+                   MyApp()
 
                 }
             }
@@ -51,10 +52,52 @@ class BasicActivity1 : ComponentActivity() {
     }
 }
 
+@Composable
+fun MyApp(){
+    var shouldShowOnBoarding by remember {
+        mutableStateOf(true)
+    }
+    if(shouldShowOnBoarding){
+        OnboardingScreen(onContinueClicked={
+            shouldShowOnBoarding=false
+        })
+    }else{
+        val values = listOf<String>("World", "Compose")
+        HelloWorld(values)
+    }
+}
+
+@Composable
+fun OnboardingScreen(onContinueClicked:()->Unit) {
+
+    Surface(color = MaterialTheme.colors.secondaryVariant) {
+        Column(modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally) {
+            Text("Welcome to the Basic CodeLabs")
+            Button(modifier = Modifier.padding(vertical = 20.dp),
+                onClick = onContinueClicked) {
+                Text(text = "Continue")
+
+            }
+        }
+
+    }
+
+}
+
+//@Preview(showBackground = true, widthDp = 320, heightDp = 320)
+//@Composable
+//fun OnboardingPreview() {
+//    MyApplicationTheme {
+//        OnboardingScreen(onContinueClicked = {})
+//
+//    }
+//}
+
 
 @Composable
 fun HelloWorld(names: List<String>) {
-
     Column(modifier = Modifier
         .padding(vertical = 4.dp, horizontal = 4.dp)
         .background(Color.Green)) {
@@ -72,17 +115,19 @@ fun ComposeValues(name: String) {
         val expanded = remember {
             mutableStateOf(false)
         }
-        val extraPadding =if(expanded.value) 49.dp else 0.dp
+        val extraPadding = if (expanded.value) 49.dp else 0.dp
         Row(modifier = Modifier
             .fillMaxWidth()
             .padding(20.dp, 20.dp)) {
-            Column(modifier = Modifier.weight(1f).padding(bottom = extraPadding)) {
+            Column(modifier = Modifier
+                .weight(1f)
+                .padding(bottom = extraPadding)) {
                 Text(text = "Hello")
-                Text(text =  ",$name")
+                Text(text = ",$name")
             }
-            OutlinedButton(onClick = {expanded.value=!expanded.value }) {
-                Text( if(expanded.value) "Show More" else "Show Less" ,textAlign = TextAlign.Center)
-                
+            OutlinedButton(onClick = { expanded.value = !expanded.value }) {
+                Text(if (expanded.value) "Show More" else "Show Less", textAlign = TextAlign.Center)
+
             }
         }
 
@@ -188,28 +233,28 @@ fun HelloContent(name: String, onNameClicked: (String) -> Unit) {
 
 }
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview2() {
-
-    //   CartItem()
-    var name by rememberSaveable {
-        mutableStateOf("")
-    }
-//    Surface(color = MaterialTheme.colors.error) {
+//@Preview(showBackground = true)
+//@Composable
+//fun DefaultPreview2() {
 //
-//        HelloContent(name, onNameClicked = {
-//            name = it
-//        })
+//    //   CartItem()
+//    var name by rememberSaveable {
+//        mutableStateOf("")
 //    }
-    // DynamicText(SampleData2.noConversation)
-    // MessageList(SampleData2.conversationSample)
-    // NamePicker(header = "Items", names = SampleData2.conversationSample,onNameClicked = {
-    var values = listOf<String>("World", "Compose")
-    HelloWorld(values)
-    //    })
-
-}
+////    Surface(color = MaterialTheme.colors.error) {
+////
+////        HelloContent(name, onNameClicked = {
+////            name = it
+////        })
+////    }
+//    // DynamicText(SampleData2.noConversation)
+//    // MessageList(SampleData2.conversationSample)
+//    // NamePicker(header = "Items", names = SampleData2.conversationSample,onNameClicked = {
+//    val values = listOf<String>("World", "Compose")
+//    HelloWorld(values)
+//    //    })
+//
+//}
 
 @Composable
 fun MessageList(conversationSample: List<Message>) {
