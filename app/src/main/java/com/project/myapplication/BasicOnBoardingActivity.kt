@@ -22,8 +22,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.project.myapplication.ui.theme.MyApplicationTheme
@@ -54,7 +54,7 @@ class BasicOnBoardingActivity : ComponentActivity() {
 
 @Composable
 fun MyApp(){
-    var shouldShowOnBoarding by remember {
+    var shouldShowOnBoarding by rememberSaveable{
         mutableStateOf(true)
     }
     if(shouldShowOnBoarding){
@@ -62,8 +62,8 @@ fun MyApp(){
             shouldShowOnBoarding=false
         })
     }else{
-        val values = listOf<String>("World", "Compose")
-        HelloWorld(values)
+        val names: List<String> = List(100) { "$it" }
+        HelloWorld(names)
     }
 }
 
@@ -86,7 +86,7 @@ fun OnboardingScreen(onContinueClicked:()->Unit) {
 
 }
 
-//@Preview(showBackground = true, widthDp = 320, heightDp = 320)
+//@Preview(showBackground = true, widthDp = 320, heightDp = 320,uiMode = UI_MODE_NIGHT_YES)
 //@Composable
 //fun OnboardingPreview() {
 //    MyApplicationTheme {
@@ -98,11 +98,12 @@ fun OnboardingScreen(onContinueClicked:()->Unit) {
 
 @Composable
 fun HelloWorld(names: List<String>) {
-    Column(modifier = Modifier
+    LazyColumn(modifier = Modifier
         .padding(vertical = 4.dp, horizontal = 4.dp)
         .background(Color.Green)) {
-        for (name in names) {
-            ComposeValues(name)
+        items(items=names){
+            name->
+            ComposeValues(name = name)
         }
 
     }
@@ -122,8 +123,12 @@ fun ComposeValues(name: String) {
             Column(modifier = Modifier
                 .weight(1f)
                 .padding(bottom = extraPadding)) {
-                Text(text = "Hello")
-                Text(text = ",$name")
+                Text(text = "Hello",style = MaterialTheme.typography.h5.copy(
+                    fontWeight = FontWeight.Black
+                ))
+                Text(text = ",$name",style = MaterialTheme.typography.h4.copy(
+                    fontWeight = FontWeight.ExtraBold
+                ))
             }
             OutlinedButton(onClick = { expanded.value = !expanded.value }) {
                 Text(if (expanded.value) "Show More" else "Show Less", textAlign = TextAlign.Center)
@@ -233,7 +238,7 @@ fun HelloContent(name: String, onNameClicked: (String) -> Unit) {
 
 }
 
-//@Preview(showBackground = true)
+//@Preview(showBackground = true,uiMode = UI_MODE_NIGHT_YES)
 //@Composable
 //fun DefaultPreview2() {
 //
@@ -250,7 +255,7 @@ fun HelloContent(name: String, onNameClicked: (String) -> Unit) {
 //    // DynamicText(SampleData2.noConversation)
 //    // MessageList(SampleData2.conversationSample)
 //    // NamePicker(header = "Items", names = SampleData2.conversationSample,onNameClicked = {
-//    val values = listOf<String>("World", "Compose")
+//    val values: List<String> = List(100) { "$it" }
 //    HelloWorld(values)
 //    //    })
 //
