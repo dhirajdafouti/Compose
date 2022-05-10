@@ -9,7 +9,7 @@ buildscript {
     dependencies {
         def gradle = '7.0.2'
         classpath "com.android.tools.build:gradle:$gradle"
-
+        classpath "com.google.dagger:hilt-android-gradle-plugin:2.38.1"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong
