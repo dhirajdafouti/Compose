@@ -1,5 +1,6 @@
 package com.project.myapplication
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,6 +14,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.TabRowDefaults.Divider
+import androidx.compose.material.icons.Icons
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -24,6 +26,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.project.myapplication.ui.theme.MyApplicationTheme
@@ -44,7 +47,8 @@ class BasicOnBoardingActivity : ComponentActivity() {
 //                    HelloContent(name, onNameClicked = {
 //                        name = it
 //                    })
-                   MyApp()
+                    // MyApp()
+                    WaterCounter(modifier = Modifier)
 
                 }
             }
@@ -52,23 +56,86 @@ class BasicOnBoardingActivity : ComponentActivity() {
     }
 }
 
+
 @Composable
-fun MyApp(){
-    var shouldShowOnBoarding by rememberSaveable{
+fun WellnessTaskItem(
+    taskName: String,
+    onClose: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
+        Text(
+            modifier = modifier
+                .weight(1f)
+                .padding(16.dp),
+            text = taskName
+        )
+        IconButton(onClick = { onClose }) {
+            Icon(painterResource(R.drawable.ic_launcher_foreground), "")
+        }
+
+    }
+
+}
+
+@Composable
+fun WaterCounter(modifier: Modifier = Modifier) {
+    Surface(modifier = Modifier
+        .fillMaxSize()
+        .background(Color.White)) {
+        Column(modifier = modifier.padding(16.dp)) {
+            var count by remember {
+                mutableStateOf(0)
+            }
+
+            if (count > 0) {
+                var showTask by remember {
+                    mutableStateOf(true)
+                }
+                if (showTask) {
+                    WellnessTaskItem(taskName = "Have you take water in 15 mins", onClose = {
+                     showTask=false
+                    })
+                }
+                Text("You have $count glasses", modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(2.dp))
+            }
+            Row(modifier = modifier.weight(1f)) {
+                Button(onClick = {
+                    count++
+                }, modifier.padding(6.dp), enabled = count < 0) {
+                    Text("Add one")
+                }
+                Button(onClick = {
+                    count = 0
+                }, modifier.padding(6.dp)) {
+                    Text("Clear Water Count ")
+                }
+            }
+        }
+
+    }
+
+}
+
+@Composable
+fun MyApp() {
+    var shouldShowOnBoarding by rememberSaveable {
         mutableStateOf(true)
     }
-    if(shouldShowOnBoarding){
-        OnboardingScreen(onContinueClicked={
-            shouldShowOnBoarding=false
+    if (shouldShowOnBoarding) {
+        OnboardingScreen(onContinueClicked = {
+            shouldShowOnBoarding = false
         })
-    }else{
+    } else {
         val names: List<String> = List(100) { "$it" }
         HelloWorld(names)
     }
 }
 
 @Composable
-fun OnboardingScreen(onContinueClicked:()->Unit) {
+fun OnboardingScreen(onContinueClicked: () -> Unit) {
 
     Surface(color = MaterialTheme.colors.secondaryVariant) {
         Column(modifier = Modifier.fillMaxSize(),
@@ -86,13 +153,13 @@ fun OnboardingScreen(onContinueClicked:()->Unit) {
 
 }
 
-//@Preview(showBackground = true, widthDp = 320, heightDp = 320,uiMode = UI_MODE_NIGHT_YES)
+//@Preview(showBackground = true, widthDp = 320, heightDp = 320, uiMode = UI_MODE_NIGHT_YES)
 //@Composable
 //fun OnboardingPreview() {
-//    MyApplicationTheme {
-//        OnboardingScreen(onContinueClicked = {})
-//
-//    }
+//    // MyApplicationTheme {
+//    //   OnboardingScreen(onContinueClicked = {})
+//    WaterCounter(modifier = Modifier)
+//    //  }
 //}
 
 
@@ -101,8 +168,7 @@ fun HelloWorld(names: List<String>) {
     LazyColumn(modifier = Modifier
         .padding(vertical = 4.dp, horizontal = 4.dp)
         .background(Color.Green)) {
-        items(items=names){
-            name->
+        items(items = names) { name ->
             ComposeValues(name = name)
         }
 
@@ -123,10 +189,10 @@ fun ComposeValues(name: String) {
             Column(modifier = Modifier
                 .weight(1f)
                 .padding(bottom = extraPadding)) {
-                Text(text = "Hello",style = MaterialTheme.typography.h5.copy(
+                Text(text = "Hello", style = MaterialTheme.typography.h5.copy(
                     fontWeight = FontWeight.Black
                 ))
-                Text(text = ",$name",style = MaterialTheme.typography.h4.copy(
+                Text(text = ",$name", style = MaterialTheme.typography.h4.copy(
                     fontWeight = FontWeight.ExtraBold
                 ))
             }
