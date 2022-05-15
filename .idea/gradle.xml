@@ -12,6 +12,9 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/app/jetchat" />
+            <option value="$PROJECT_DIR$/app/jetsurvey" />
+            <option value="$PROJECT_DIR$/jetSurvey" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

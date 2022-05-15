@@ -8,3 +8,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "My Application"
 include ':app'
+include ':app:jetsurvey'
+include ':jetSurvey'
+include ':app:jetsurvey'
+include ':app:jetchat'
