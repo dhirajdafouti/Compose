@@ -7,7 +7,7 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.project.jetsurvey"
+        applicationId "com.project.myapplication"
         minSdk 30
         targetSdk 31
         versionCode 1
