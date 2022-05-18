@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,11 +14,16 @@
  * limitations under the License.
  */
 
-package com.codelab.layouts.ui
+package com.codelab.basiclayouts.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val purple200 = Color(0xFFBB86FC)
-val purple500 = Color(0xFF6200EE)
-val purple700 = Color(0xFF3700B3)
-val teal200 = Color(0xFF03DAC5)
+val taupe100 = Color(0xFFF0EAE2)
+val taupe800 = Color(0xFF655454)
+val rust300 = Color(0xFFE1AFAF)
+val rust600 = Color(0xFF886363)
+val gray900 = Color(0xFF333333)
+val white150 = Color.White.copy(alpha = 0.15f)
+val white800 = Color.White.copy(alpha = 0.8f)
+val white850 = Color.White.copy(alpha = 0.85f)
+val gray800 = gray900.copy(alpha = 0.8f)
