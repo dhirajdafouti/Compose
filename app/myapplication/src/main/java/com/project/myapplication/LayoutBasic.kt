@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.codelab.basiclayouts.ui.theme.MySootheTheme
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -63,7 +64,7 @@ fun SearchBar(
 fun AlignYourBodyElement(
     modifier: Modifier = Modifier,
 ) {
-    Column(modifier) {
+    Column(modifier,horizontalAlignment = Alignment.CenterHorizontally) {
         Image(painter = painterResource(id = R.drawable.ab1_inversions),
             contentDescription = null,
             modifier
@@ -72,7 +73,7 @@ fun AlignYourBodyElement(
                     CircleShape),contentScale = ContentScale.Crop)
 
         Text(text = stringResource(id = R.string.ab1_inversions),style = MaterialTheme.typography.h5,
-        modifier = Modifier.paddingFromBaseline(24.dp,8.dp))
+        modifier = Modifier.paddingFromBaseline(24.dp,8.dp).align(Alignment.End))
     }
 }
 
