@@ -5,14 +5,23 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.codelab.basiclayouts.ui.theme.MySootheTheme
+import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 
 
 class LayoutBasic : ComponentActivity() {
@@ -28,26 +37,49 @@ class LayoutBasic : ComponentActivity() {
         }
     }
 }
+
 // Step: Search bar - Modifiers
 @Composable
 fun SearchBar(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
-    // Implement composable here
+    TextField(value = "", onValueChange = {
+    },
+        colors = TextFieldDefaults.textFieldColors(
+            backgroundColor = MaterialTheme.colors.surface
+        ),
+        leadingIcon = {
+            Icon(Icons.Default.Search, contentDescription = null)
+        }, placeholder = {
+            Text(stringResource(id = R.string.placeholder_search))
+        }, modifier = modifier
+            .heightIn(26.dp)
+            .fillMaxWidth())
+
 }
 
 // Step: Align your body - Alignment
 @Composable
 fun AlignYourBodyElement(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
-    // Implement composable here
+    Column(modifier) {
+        Image(painter = painterResource(id = R.drawable.ab1_inversions),
+            contentDescription = null,
+            modifier
+                .size(88.dp)
+                .clip(
+                    CircleShape),contentScale = ContentScale.Crop)
+
+        Text(text = stringResource(id = R.string.ab1_inversions),style = MaterialTheme.typography.h5,
+        modifier = Modifier.paddingFromBaseline(24.dp,8.dp))
+    }
 }
 
 // Step: Favorite collection card - Material Surface
 @Composable
 fun FavoriteCollectionCard(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     // Implement composable here
 }
@@ -55,7 +87,7 @@ fun FavoriteCollectionCard(
 // Step: Align your body row - Arrangements
 @Composable
 fun AlignYourBodyRow(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     // Implement composable here
 }
@@ -63,7 +95,7 @@ fun AlignYourBodyRow(
 // Step: Favorite collections grid - LazyGrid
 @Composable
 fun FavoriteCollectionsGrid(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     // Implement composable here
 }
@@ -71,7 +103,7 @@ fun FavoriteCollectionsGrid(
 // Step: Home section - Slot APIs
 @Composable
 fun HomeSection(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     // Implement composable here
 }
@@ -114,7 +146,7 @@ private val favoriteCollectionsData = listOf(
 
 private data class DrawableStringPair(
     @DrawableRes val drawable: Int,
-    @StringRes val text: Int
+    @StringRes val text: Int,
 )
 
 @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
