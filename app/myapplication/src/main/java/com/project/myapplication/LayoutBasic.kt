@@ -7,6 +7,8 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -32,7 +34,7 @@ class LayoutBasic : ComponentActivity() {
             MySootheTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-
+                    AlignYourBodyRow(modifier = Modifier)
                 }
             }
         }
@@ -62,18 +64,23 @@ fun SearchBar(
 // Step: Align your body - Alignment
 @Composable
 fun AlignYourBodyElement(
+    @DrawableRes drawable: Int,
+    @StringRes text: Int,
     modifier: Modifier = Modifier,
 ) {
-    Column(modifier,horizontalAlignment = Alignment.CenterHorizontally) {
-        Image(painter = painterResource(id = R.drawable.ab1_inversions),
+    Column(
+        modifier, horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Image(painter = painterResource(id = drawable),
             contentDescription = null,
             modifier
                 .size(88.dp)
                 .clip(
-                    CircleShape),contentScale = ContentScale.Crop)
+                    CircleShape), contentScale = ContentScale.Crop)
 
-        Text(text = stringResource(id = R.string.ab1_inversions),style = MaterialTheme.typography.h5,
-        modifier = Modifier.paddingFromBaseline(24.dp,8.dp).align(Alignment.End))
+        Text(text = stringResource(id = text), style = MaterialTheme.typography.h5,
+            modifier = Modifier
+                .paddingFromBaseline(24.dp, 8.dp))
     }
 }
 
@@ -82,7 +89,16 @@ fun AlignYourBodyElement(
 fun FavoriteCollectionCard(
     modifier: Modifier = Modifier,
 ) {
-    // Implement composable here
+    Surface(modifier, shape = MaterialTheme.shapes.small) {
+        Row(Modifier.width(192.dp), verticalAlignment = Alignment.CenterVertically) {
+            Image(painterResource(id = R.drawable.fc2_nature_meditations),
+                contentDescription = null, modifier = Modifier.size(56.dp),
+                contentScale = ContentScale.Crop)
+            Text(text = stringResource(id = R.string.fc2_nature_meditations),
+                Modifier.padding(horizontal = 16.dp),
+                style = MaterialTheme.typography.h3)
+        }
+    }
 }
 
 // Step: Align your body row - Arrangements
@@ -90,7 +106,11 @@ fun FavoriteCollectionCard(
 fun AlignYourBodyRow(
     modifier: Modifier = Modifier,
 ) {
-    // Implement composable here
+    LazyRow(modifier, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        items(alignYourBodyData) { item ->
+            AlignYourBodyElement(drawable = item.drawable, text = item.text)
+        }
+    }
 }
 
 // Step: Favorite collections grid - LazyGrid
@@ -161,6 +181,8 @@ fun SearchBarPreview() {
 fun AlignYourBodyElementPreview() {
     MySootheTheme {
         AlignYourBodyElement(
+            R.drawable.ab1_inversions,
+            R.string.ab1_inversions,
             modifier = Modifier.padding(8.dp)
         )
     }
