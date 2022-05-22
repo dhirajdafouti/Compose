@@ -5,26 +5,27 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.codelab.basiclayouts.ui.theme.MySootheTheme
-import androidx.compose.material.TextField
-import androidx.compose.material.TextFieldDefaults
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 
 
 class LayoutBasic : ComponentActivity() {
@@ -34,7 +35,6 @@ class LayoutBasic : ComponentActivity() {
             MySootheTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    AlignYourBodyRow(modifier = Modifier)
                 }
             }
         }
@@ -73,7 +73,7 @@ fun AlignYourBodyElement(
     ) {
         Image(painter = painterResource(id = drawable),
             contentDescription = null,
-            modifier
+            Modifier
                 .size(88.dp)
                 .clip(
                     CircleShape), contentScale = ContentScale.Crop)
@@ -88,13 +88,15 @@ fun AlignYourBodyElement(
 @Composable
 fun FavoriteCollectionCard(
     modifier: Modifier = Modifier,
+    @DrawableRes drawable: Int,
+    @StringRes text: Int,
 ) {
     Surface(modifier, shape = MaterialTheme.shapes.small) {
         Row(Modifier.width(192.dp), verticalAlignment = Alignment.CenterVertically) {
-            Image(painterResource(id = R.drawable.fc2_nature_meditations),
+            Image(painterResource(id = drawable),
                 contentDescription = null, modifier = Modifier.size(56.dp),
                 contentScale = ContentScale.Crop)
-            Text(text = stringResource(id = R.string.fc2_nature_meditations),
+            Text(text = stringResource(id = text),
                 Modifier.padding(horizontal = 16.dp),
                 style = MaterialTheme.typography.h3)
         }
@@ -114,11 +116,19 @@ fun AlignYourBodyRow(
 }
 
 // Step: Favorite collections grid - LazyGrid
+@ExperimentalFoundationApi
 @Composable
 fun FavoriteCollectionsGrid(
     modifier: Modifier = Modifier,
-) {
-    // Implement composable here
+
+    ) {
+    LazyHorizontalGrid(rows = androidx.compose.foundation.lazy.grid.GridCells.Fixed(2),
+        modifier = Modifier.height(120.dp), verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp), contentPadding = PaddingValues(16.dp)) {
+        items(favoriteCollectionsData) { item ->
+            FavoriteCollectionCard(modifier, item.drawable, item.text)
+        }
+    }
 }
 
 // Step: Home section - Slot APIs
@@ -193,11 +203,14 @@ fun AlignYourBodyElementPreview() {
 fun FavoriteCollectionCardPreview() {
     MySootheTheme {
         FavoriteCollectionCard(
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier.padding(8.dp),
+            R.drawable.fc2_nature_meditations,
+            R.string.fc2_nature_meditations
         )
     }
 }
 
+@ExperimentalFoundationApi
 @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
 @Composable
 fun FavoriteCollectionsGridPreview() {
