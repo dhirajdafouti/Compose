@@ -15,7 +15,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Spa
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,6 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.codelab.basiclayouts.ui.theme.MySootheTheme
+import java.util.*
 
 
 class LayoutBasic : ComponentActivity() {
@@ -69,7 +72,8 @@ fun AlignYourBodyElement(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier, horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.padding(horizontal = 16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Image(painter = painterResource(id = drawable),
             contentDescription = null,
@@ -78,7 +82,7 @@ fun AlignYourBodyElement(
                 .clip(
                     CircleShape), contentScale = ContentScale.Crop)
 
-        Text(text = stringResource(id = text), style = MaterialTheme.typography.h5,
+        Text(text = stringResource(id = text), style = MaterialTheme.typography.h2,
             modifier = Modifier
                 .paddingFromBaseline(24.dp, 8.dp))
     }
@@ -134,27 +138,81 @@ fun FavoriteCollectionsGrid(
 // Step: Home section - Slot APIs
 @Composable
 fun HomeSection(
+    @StringRes title: Int,
     modifier: Modifier = Modifier,
+    content: @Composable () -> Unit,
 ) {
-    // Implement composable here
+    Column(modifier) {
+        Text(text = stringResource(id = title).uppercase(Locale.getDefault()),
+            style = MaterialTheme.typography.h5,
+            modifier = modifier
+                .paddingFromBaseline(top = 40.dp, bottom = 8.dp)
+                .padding(horizontal = 16.dp))
+        content()
+    }
 }
 
 // Step: Home screen - Scrolling
+@ExperimentalFoundationApi
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
-    // Implement composable here
+    Column(modifier.padding(vertical = 16.dp)) {
+        Spacer(modifier = Modifier.height(6.dp))
+        SearchBar(Modifier.padding(horizontal = 16.dp))
+        HomeSection(title = R.string.align_your_body) {
+            AlignYourBodyRow()
+        }
+        HomeSection(title = R.string.favorite_collections) {
+            FavoriteCollectionsGrid(modifier)
+        }
+        Spacer(modifier = Modifier.height(6.dp))
+
+    }
 }
 
 // Step: Bottom navigation - Material
 @Composable
 private fun SootheBottomNavigation(modifier: Modifier = Modifier) {
-    // Implement composable here
+    BottomNavigation(backgroundColor = MaterialTheme.colors.background, modifier = modifier) {
+
+        BottomNavigationItem(selected = true,
+            onClick = { /*TODO*/ },
+            icon = {
+                Icon(Icons.Default.Spa, contentDescription = null)
+            },
+            label = {
+                Text(stringResource(id = R.string.bottom_navigation_home))
+            })
+
+        BottomNavigationItem(selected = false,
+            onClick = { /*TODO*/ },
+            icon = {
+                Icon(Icons.Default.AccountCircle, contentDescription = null)
+            },
+            label = {
+                Text(stringResource(id = R.string.bottom_navigation_profile))
+            })
+
+
+    }
+
+
 }
 
 // Step: MySoothe App - Scaffold
+@ExperimentalFoundationApi
 @Composable
 fun MySootheApp() {
-    // Implement composable here
+    MySootheTheme() {
+        Scaffold(
+            bottomBar = {
+                SootheBottomNavigation()
+            }
+        ) {
+            HomeScreen()
+        }
+    }
+
 }
 
 private val alignYourBodyData = listOf(
@@ -226,9 +284,14 @@ fun AlignYourBodyRowPreview() {
 @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
 @Composable
 fun HomeSectionPreview() {
-    MySootheTheme { HomeSection() }
+    MySootheTheme {
+        HomeSection(R.string.align_your_body, modifier = Modifier) {
+            AlignYourBodyRow()
+        }
+    }
 }
 
+@ExperimentalFoundationApi
 @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
 @Composable
 fun ScreenContentPreview() {
@@ -241,7 +304,8 @@ fun BottomNavigationPreview() {
     MySootheTheme { SootheBottomNavigation(Modifier.padding(top = 24.dp)) }
 }
 
-@Preview(widthDp = 360, heightDp = 640)
+@ExperimentalFoundationApi
+@Preview(showBackground = true, widthDp = 500, heightDp = 500, backgroundColor = 0xFFF0EAE2)
 @Composable
 fun MySoothePreview() {
     MySootheApp()
