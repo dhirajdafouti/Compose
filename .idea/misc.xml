@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/dhira/OneDrive/Desktop/Kotlin/MyApplication/app/jetsurvey/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1065" />
+        <entry key="..\:/Users/dhira/OneDrive/Desktop/Kotlin/MyApplication/app/jetsurvey/src/main/res/drawable/ic_launcher_background.xml" value="0.1065" />
         <entry key="..\:/Users/dhira/OneDrive/Desktop/Kotlin/MyApplication/app/myapplication/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/dhira/OneDrive/Desktop/Kotlin/MyApplication/app/myapplication/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="..\:/Users/dhira/OneDrive/Desktop/Kotlin/MyApplication/app/src/main/res/layout/content_login.xml" value="0.184375" />

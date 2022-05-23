@@ -32,4 +32,8 @@
     <string name="bottom_navigation_profile">PROFILE</string>
     <string name="placeholder_search">Search</string>
     <string name="visting_card_name">Dhiraj Dafouti</string>
+    <string name="visting_card_name_title">Senior Engineer</string>
+    <string name="phone_number">+11 08993774849388</string>
+    <string name="email_id">dhirajdafouti.dce@gmail.com</string>
+    <string name="personnel_laptop">Personal Laptop</string>
 </resources>
