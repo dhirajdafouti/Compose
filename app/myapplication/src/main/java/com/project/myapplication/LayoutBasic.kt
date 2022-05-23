@@ -7,6 +7,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
@@ -22,10 +23,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.codelab.basiclayouts.ui.theme.MySootheTheme
 import java.util.*
@@ -199,23 +206,69 @@ private fun SootheBottomNavigation(modifier: Modifier = Modifier) {
 
 }
 
+
 @Composable
-fun VisitingCardName(modifier: Modifier = Modifier) {
-    Column(verticalArrangement = Arrangement.Center) {
-        Image(painterResource(id = R.drawable.ab1_inversions),
-            contentDescription = null,
-            modifier.height(20.dp), contentScale = ContentScale.Crop)
-        Spacer(modifier = modifier.height(2.dp))
-        Text(text = stringResource(id = R . string . visting_card_name)
-            ,style = MaterialTheme.typography.h3)
+fun VisitingCard(modifier: Modifier) {
+    MySootheTheme() {
+        Column(Modifier.padding(horizontal = 2.dp).background(Color.Magenta)) {
+            VisitingCardName(modifier) {
+                VisitingCardDetails(modifier)
+            }
+        }
+
 
     }
+}
+
+@Composable
+fun VisitingCardName(
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit,
+) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.padding(horizontal = 16.dp)) {
+        Image(painterResource(id = R.drawable.android_logo),
+            contentDescription = null,
+            modifier
+                .size(60.dp)
+                .clip(RectangleShape), contentScale = ContentScale.Crop)
+
+        Text(text = stringResource(id = R.string.visting_card_name,
+            modifier.padding(horizontal = 16.dp)),
+            color = Color.Black)
+        Text(
+            text = stringResource(id = R.string.visting_card_name_title), color = Color.Black)
+        Spacer(modifier = Modifier.height(30.dp))
+        content()
+    }
+
 
 }
 
 @Composable
-fun VisitingCardDetails() {
+fun VisitingCardDetails(modifier: Modifier) {
+    Column(Modifier.padding(horizontal = 4.dp)) {
+        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier
+            .padding(horizontal = 4.dp)) {
+            Image(painterResource(id = R.drawable.phone_black_24dp), contentDescription = null)
+            Spacer(modifier = Modifier.width(2.dp))
+            Text(text = R.string.phone_number.toString())
 
+        }
+        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier
+            .padding(horizontal = 4.dp)) {
+            Image(painterResource(id = R.drawable.lock_black_24dp), contentDescription = null)
+            Spacer(modifier = Modifier.width(2.dp))
+            Text(text = R.string.email_id.toString())
+
+        }
+        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier
+            .padding(horizontal = 4.dp)) {
+            Image(painterResource(id = R.drawable.laptop_black_24dp), contentDescription = null)
+            Spacer(modifier = Modifier.width(2.dp))
+            Text(text = R.string.personnel_laptop.toString())
+        }
+    }
 }
 
 
@@ -259,18 +312,20 @@ private data class DrawableStringPair(
 )
 
 
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
+@Preview(showBackground = true, backgroundColor = 0xFFE1AFAF)
 @Composable
 fun VisitingCardNamePreview() {
     MySootheTheme {
-        VisitingCardName(Modifier.padding(8.dp))
+        // VisitingCardName(Modifier.padding(8.dp))
     }
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
 @Composable
 fun VisitingCardDetailsPreview() {
-
+    MySootheTheme {
+        VisitingCardDetails(modifier = Modifier.padding(4.dp))
+    }
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
@@ -332,6 +387,14 @@ fun HomeSectionPreview() {
 fun ScreenContentPreview() {
     MySootheTheme { HomeScreen() }
 }
+
+@ExperimentalFoundationApi
+@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
+@Composable
+fun VisitingCardPreview() {
+    MySootheTheme { VisitingCard(modifier = Modifier.padding(8.dp)) }
+}
+
 
 @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
 @Composable
