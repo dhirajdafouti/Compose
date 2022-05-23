@@ -198,6 +198,21 @@ private fun SootheBottomNavigation(modifier: Modifier = Modifier) {
 
 
 }
+@Composable
+fun VisitingCardName(){
+
+}
+
+@Composable
+fun VisitingCardDetails(){
+
+}
+
+
+@Composable
+fun VisitingCard(modifier: Modifier = Modifier) {
+
+}
 
 // Step: MySoothe App - Scaffold
 @ExperimentalFoundationApi
@@ -237,6 +252,26 @@ private data class DrawableStringPair(
     @DrawableRes val drawable: Int,
     @StringRes val text: Int,
 )
+
+@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
+@Composable
+fun VisitingCardPreview() {
+    MySootheTheme {
+        VisitingCard(Modifier.padding(8.dp))
+    }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
+@Composable
+fun VisitingCardNamePreview(){
+
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
+@Composable
+fun VisitingCardDetailsPreview(){
+
+}
 
 @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
 @Composable
