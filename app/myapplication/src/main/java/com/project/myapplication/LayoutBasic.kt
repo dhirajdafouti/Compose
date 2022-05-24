@@ -275,12 +275,20 @@ fun VisitingCardDetails(modifier: Modifier) {
         modifier = Modifier
             .padding(horizontal = 16.dp)
             .background(Color.Transparent)) {
+        Spacer(modifier = Modifier
+            .height(1.dp)
+            .background(Color.Black)
+            .fillMaxWidth())
         Row(verticalAlignment = Alignment.CenterVertically) {
             Image(painterResource(id = R.drawable.phone_black_24dp), contentDescription = null)
             Spacer(modifier = Modifier.width(3.dp))
             Text(text = stringResource(id = R.string.phone_number), fontSize = TextUnit.Unspecified)
 
         }
+        Spacer(modifier = Modifier
+            .height(1.dp)
+            .background(Color.Black)
+            .fillMaxWidth())
         Row(verticalAlignment = Alignment.CenterVertically
         ) {
             Image(painterResource(id = R.drawable.lock_black_24dp), contentDescription = null)
@@ -300,6 +308,10 @@ fun VisitingCardDetails(modifier: Modifier) {
             Text(text = stringResource(id = R.string.personnel_laptop),
                 fontSize = TextUnit.Unspecified)
         }
+        Spacer(modifier = Modifier
+            .height(1.dp)
+            .background(Color.Black)
+            .fillMaxWidth())
     }
 }
 
