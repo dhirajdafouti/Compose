@@ -28,11 +28,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -147,11 +144,10 @@ fun FavoriteCollectionsGrid(
 @Composable
 fun FavoriteCollectionVerticalGrid(modifier: Modifier = Modifier) {
     LazyVerticalGrid(columns = GridCells.Fixed(2),
-        modifier = Modifier.height(200.dp).width(200.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = Modifier.height(100.dp), verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         items(favoriteCollectionsData) { item ->
-            FavoriteCollectionVerticalCard(modifier, drawable = item.drawable, text=item.text)
+            FavoriteCollectionVerticalCard(modifier, drawable = item.drawable, text = item.text)
         }
     }
 
@@ -163,10 +159,10 @@ fun FavoriteCollectionVerticalCard(
     @StringRes text: Int,
 ) {
     Surface(modifier, shape = MaterialTheme.shapes.small) {
-        Column(Modifier.height(100.dp).width(130.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(modifier = Modifier.height(100.dp), horizontalAlignment = Alignment.CenterHorizontally) {
             Image(painterResource(id = drawable),
-                contentDescription = null, modifier = Modifier.height(80.dp).width(130.dp),
-                contentScale = ContentScale.Crop)
+                contentDescription = null,
+                contentScale = ContentScale.Crop, modifier = Modifier.height(80.dp))
             Text(text = stringResource(id = text),
                 Modifier.padding(horizontal = 16.dp),
                 style = MaterialTheme.typography.h3)
