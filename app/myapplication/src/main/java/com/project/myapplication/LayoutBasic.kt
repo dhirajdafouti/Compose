@@ -10,7 +10,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -142,6 +144,36 @@ fun FavoriteCollectionsGrid(
     }
 }
 
+@Composable
+fun FavoriteCollectionVerticalGrid(modifier: Modifier = Modifier) {
+    LazyVerticalGrid(columns = GridCells.Fixed(2),
+        modifier = Modifier.height(200.dp).width(200.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        items(favoriteCollectionsData) { item ->
+            FavoriteCollectionVerticalCard(modifier, drawable = item.drawable, text=item.text)
+        }
+    }
+
+}
+
+@Composable
+fun FavoriteCollectionVerticalCard(
+    modifier: Modifier, @DrawableRes drawable: Int,
+    @StringRes text: Int,
+) {
+    Surface(modifier, shape = MaterialTheme.shapes.small) {
+        Column(Modifier.height(100.dp).width(130.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+            Image(painterResource(id = drawable),
+                contentDescription = null, modifier = Modifier.height(80.dp).width(130.dp),
+                contentScale = ContentScale.Crop)
+            Text(text = stringResource(id = text),
+                Modifier.padding(horizontal = 16.dp),
+                style = MaterialTheme.typography.h3)
+        }
+    }
+}
+
 // Step: Home section - Slot APIs
 @Composable
 fun HomeSection(
@@ -210,9 +242,9 @@ private fun SootheBottomNavigation(modifier: Modifier = Modifier) {
 @Composable
 fun VisitingCard(modifier: Modifier) {
     MySootheTheme() {
-            VisitingCardName(modifier) {
-                VisitingCardDetails(modifier)
-            }
+        VisitingCardName(modifier) {
+            VisitingCardDetails(modifier)
+        }
     }
 }
 
@@ -247,24 +279,30 @@ fun VisitingCardDetails(modifier: Modifier) {
         modifier = Modifier
             .padding(horizontal = 16.dp)
             .background(Color.Transparent)) {
-        Row(verticalAlignment = Alignment.CenterVertically){
+        Row(verticalAlignment = Alignment.CenterVertically) {
             Image(painterResource(id = R.drawable.phone_black_24dp), contentDescription = null)
             Spacer(modifier = Modifier.width(3.dp))
             Text(text = stringResource(id = R.string.phone_number), fontSize = TextUnit.Unspecified)
 
         }
         Row(verticalAlignment = Alignment.CenterVertically
-            ) {
+        ) {
             Image(painterResource(id = R.drawable.lock_black_24dp), contentDescription = null)
             Spacer(modifier = Modifier.width(3.dp))
-            Text(text = stringResource(id = R.string.email_id),fontSize = TextUnit.Unspecified)
+            Text(text = stringResource(id = R.string.email_id), fontSize = TextUnit.Unspecified)
 
         }
-        Spacer(modifier = Modifier.height(1.dp).background(Color.Black).fillMaxWidth())
+        Spacer(modifier = Modifier
+            .height(1.dp)
+            .background(Color.Black)
+            .fillMaxWidth())
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Image(painterResource(id = R.drawable.laptop_black_24dp), contentDescription = null,modifier.size(15.dp))
+            Image(painterResource(id = R.drawable.laptop_black_24dp),
+                contentDescription = null,
+                modifier.size(15.dp))
             Spacer(modifier = Modifier.width(3.dp))
-            Text(text = stringResource(id =R.string.personnel_laptop),fontSize = TextUnit.Unspecified)
+            Text(text = stringResource(id = R.string.personnel_laptop),
+                fontSize = TextUnit.Unspecified)
         }
     }
 }
@@ -362,6 +400,16 @@ fun FavoriteCollectionCardPreview() {
 fun FavoriteCollectionsGridPreview() {
     MySootheTheme { FavoriteCollectionsGrid() }
 }
+
+@ExperimentalFoundationApi
+@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
+@Composable
+fun FavoriteCollectionVertical() {
+    MySootheTheme {
+        FavoriteCollectionVerticalGrid(Modifier.padding(8.dp))
+    }
+}
+
 
 @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
 @Composable
