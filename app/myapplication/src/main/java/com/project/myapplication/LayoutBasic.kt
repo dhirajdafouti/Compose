@@ -210,13 +210,9 @@ private fun SootheBottomNavigation(modifier: Modifier = Modifier) {
 @Composable
 fun VisitingCard(modifier: Modifier) {
     MySootheTheme() {
-        Column(Modifier.padding(horizontal = 2.dp).background(Color.Magenta)) {
             VisitingCardName(modifier) {
                 VisitingCardDetails(modifier)
             }
-        }
-
-
     }
 }
 
@@ -238,7 +234,7 @@ fun VisitingCardName(
             color = Color.Black)
         Text(
             text = stringResource(id = R.string.visting_card_name_title), color = Color.Black)
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(50.dp))
         content()
     }
 
@@ -247,26 +243,28 @@ fun VisitingCardName(
 
 @Composable
 fun VisitingCardDetails(modifier: Modifier) {
-    Column(Modifier.padding(horizontal = 4.dp)) {
-        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier
-            .padding(horizontal = 4.dp)) {
+    Column(horizontalAlignment = Alignment.Start,
+        modifier = Modifier
+            .padding(horizontal = 16.dp)
+            .background(Color.Transparent)) {
+        Row(verticalAlignment = Alignment.CenterVertically){
             Image(painterResource(id = R.drawable.phone_black_24dp), contentDescription = null)
-            Spacer(modifier = Modifier.width(2.dp))
-            Text(text = R.string.phone_number.toString())
+            Spacer(modifier = Modifier.width(3.dp))
+            Text(text = stringResource(id = R.string.phone_number), fontSize = TextUnit.Unspecified)
 
         }
-        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier
-            .padding(horizontal = 4.dp)) {
+        Row(verticalAlignment = Alignment.CenterVertically
+            ) {
             Image(painterResource(id = R.drawable.lock_black_24dp), contentDescription = null)
-            Spacer(modifier = Modifier.width(2.dp))
-            Text(text = R.string.email_id.toString())
+            Spacer(modifier = Modifier.width(3.dp))
+            Text(text = stringResource(id = R.string.email_id),fontSize = TextUnit.Unspecified)
 
         }
-        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier
-            .padding(horizontal = 4.dp)) {
-            Image(painterResource(id = R.drawable.laptop_black_24dp), contentDescription = null)
-            Spacer(modifier = Modifier.width(2.dp))
-            Text(text = R.string.personnel_laptop.toString())
+        Spacer(modifier = Modifier.height(1.dp).background(Color.Black).fillMaxWidth())
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Image(painterResource(id = R.drawable.laptop_black_24dp), contentDescription = null,modifier.size(15.dp))
+            Spacer(modifier = Modifier.width(3.dp))
+            Text(text = stringResource(id =R.string.personnel_laptop),fontSize = TextUnit.Unspecified)
         }
     }
 }
@@ -392,7 +390,7 @@ fun ScreenContentPreview() {
 @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
 @Composable
 fun VisitingCardPreview() {
-    MySootheTheme { VisitingCard(modifier = Modifier.padding(8.dp)) }
+    VisitingCard(modifier = Modifier.padding(8.dp))
 }
 
 
