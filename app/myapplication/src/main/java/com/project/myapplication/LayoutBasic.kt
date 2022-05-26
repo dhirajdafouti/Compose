@@ -236,7 +236,7 @@ private fun SootheBottomNavigation(modifier: Modifier = Modifier) {
 
 
 @Composable
-fun VisitingCard(modifier: Modifier) {
+fun VisitingCard(modifier: Modifier=Modifier) {
     MySootheTheme() {
         VisitingCardName(modifier) {
             VisitingCardDetails(modifier)
@@ -272,9 +272,7 @@ fun VisitingCardName(
 @Composable
 fun VisitingCardDetails(modifier: Modifier) {
     Column(horizontalAlignment = Alignment.Start,
-        modifier = Modifier
-            .padding(horizontal = 16.dp)
-            .background(Color.Transparent)) {
+        ) {
         Spacer(modifier = Modifier
             .height(1.dp)
             .background(Color.Black)
@@ -446,7 +444,7 @@ fun ScreenContentPreview() {
 @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
 @Composable
 fun VisitingCardPreview() {
-    VisitingCard(modifier = Modifier.padding(8.dp))
+    VisitingCard()
 }
 
 
