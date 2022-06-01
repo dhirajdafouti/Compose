@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/app/myapplication" />
             <option value="$PROJECT_DIR$/app/rally" />
             <option value="$PROJECT_DIR$/jetSurvey" />
+            <option value="$PROJECT_DIR$/myapplication" />
           </set>
         </option>
       </GradleProjectSettings>
