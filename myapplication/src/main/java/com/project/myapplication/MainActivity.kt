@@ -112,8 +112,8 @@ fun DefaultPreview() {
     MyApplicationTheme {
         LazyColumn {
             item { SamePaddingComponent() }
-          //  item { CustomPaddingComponent() }
-         //   item { OffsetComponent() }
+            item { CustomPaddingComponent() }
+            item { OffsetComponent() }
          //   item { AspectRatioComponent() }
         }
     }
@@ -157,4 +157,49 @@ fun CustomPaddingComponent() {
             style = TextStyle(fontSize = 20.sp, fontFamily = FontFamily.Serif)
         )
     }
+
+    @Composable
+    fun OffsetComponent() {
+        // Surface is a composable provided to fulfill the needs of the "Surface" metaphor from the
+        // Material Design specification. It's generally used to change the background color, add
+        // elevation, clip or add background shape to its children composables.
+
+        // You can think of Modifiers as implementations of the decorators pattern that are used to
+        // modify the composable that its applied to. In this example, we make use of the
+        // Modifier.offset modifier that allows the composable to be shifted along the x & y direction
+        // by the user specified amount.
+        Surface(color = Color.Magenta, modifier = Modifier.offset(x = 8.dp, y = 8.dp)) {
+            // The Text composable is pre-defined by the Compose UI library; you can use this
+            // composable to render text on the screen
+            Text(
+                text = "This text is using an offset of 8 dp instead of padding. Padding also ends up" +
+                        " modifying the size of the layout. Using offset instead ensures that the " +
+                        "size of the layout retains its size.",
+                style = TextStyle(fontSize = 20.sp, fontFamily = FontFamily.Serif)
+            )
+        }
+    }
+
 }
+@Composable
+fun OffsetComponent() {
+    // Surface is a composable provided to fulfill the needs of the "Surface" metaphor from the
+    // Material Design specification. It's generally used to change the background color, add
+    // elevation, clip or add background shape to its children composables.
+
+    // You can think of Modifiers as implementations of the decorators pattern that are used to
+    // modify the composable that its applied to. In this example, we make use of the
+    // Modifier.offset modifier that allows the composable to be shifted along the x & y direction
+    // by the user specified amount.
+    Surface(color =Color.Blue, modifier = Modifier.offset(x = 8.dp, y = 8.dp)) {
+        // The Text composable is pre-defined by the Compose UI library; you can use this
+        // composable to render text on the screen
+        Text(
+            text = "This text is using an offset of 8 dp instead of padding. Padding also ends up" +
+                    " modifying the size of the layout. Using offset instead ensures that the " +
+                    "size of the layout retains its size.",
+            style = TextStyle(fontSize = 20.sp, fontFamily = FontFamily.Serif)
+        )
+    }
+}
+
